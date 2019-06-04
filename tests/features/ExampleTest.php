@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ExampleTest extends TestCase
+class ExampleTest extends FeatureTestCase
 {
     //al usar este trait cada vez que ejecutamos una prueba ejecuta un migrate y luego un rollback
     //osea la base de datos siempre termina vacia
@@ -12,13 +12,14 @@ class ExampleTest extends TestCase
 
     //mejor es usar databasetransactions
     //todas las consultas se haran dentro de una transaction
-    use DatabaseTransactions;
+    //como ya lo estoy usando en FeatureTestCase lo puedo comentar
+    //use DatabaseTransactions;
     /**
      * A basic functional test example.
      *
      * @return void
      */
-    public function testBasicExample()
+    public function test_basic_example()
     {
         //creando usuario
         //como factory usa faker para crear los usuarios debemos definir el nombre ariel para que la prueba pase
