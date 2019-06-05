@@ -39,4 +39,13 @@ class CreatePostsTest extends FeatureTestCase
             $this->see('esta es una pregunta');
 
     }
+    public function test_creating_a_post_requires_authentication(){
+        //@todo: add validation
+
+        //cuando intentemos ingresar sin haber logueado que nos lleve al login
+        $this->visit(route('posts.create'))->seePageis(route('login'));
+
+
+
+    }
 }
