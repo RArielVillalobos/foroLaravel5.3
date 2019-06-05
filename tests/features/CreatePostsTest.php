@@ -48,4 +48,20 @@ class CreatePostsTest extends FeatureTestCase
 
 
     }
+
+    public function test_create_post_form_validation(){
+
+        $this->actingAs($this->defaultUser())
+            ->visit(route('posts.create'))
+            //presionar el boton publicar sin completar ningun campo
+            ->press('Publicar')
+            //la pagina todavia deberia ser post create
+            ->seePageIs(route('posts.create'))
+            //deberiamos ver una serie de erroers
+            //el elemento field_title tenga el bloque de ayuda
+            //si el campo tiene un error tendra la clase .help-error
+            ->seeInElement('#field_title.has-error .help-block','El campo título es obligatorio')
+            ->seeInElement('#field_content.has-error .help-block','El campo contenido es obligatorio');
+
+    }
 }

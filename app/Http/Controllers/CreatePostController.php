@@ -17,6 +17,10 @@ class CreatePostController extends Controller
         //$user_id=auth()->user()->id;
        // $request->merge(['user_id'=>$user_id]);
 
+        $this->validate($request,[
+            'title'=>'required',
+            'content'=>'required'
+        ]);
         //creamos el post
         $post=new Post($request->all());
         //se lo asignamos al usuario conectado
@@ -24,7 +28,7 @@ class CreatePostController extends Controller
 
         //si no retornamos nada dara un error Crawler la prueba
         //debemos retornar algo
-        return $post->title;
+        return "Post". $post->title;
 
     }
 }

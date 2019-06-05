@@ -7,18 +7,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Register</div>
                     <div class="panel-body">
-                        <form method="post" action="{{route('posts.store')}}">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="title">
-
-
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control" name="content"></textarea>
-
-
-                            </div>
+                        {!! Form::open(['method'=>'post','route'=>'posts.store']) !!}
+                            {!! Field::text('title') !!}
+                            {!! Field::textarea('content') !!}
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
@@ -27,7 +18,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
