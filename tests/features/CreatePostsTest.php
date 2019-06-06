@@ -34,7 +34,6 @@ class CreatePostsTest extends FeatureTestCase
             //si el usuario fue redirigido a otra pagina(detalle del posts)
             //comprobamos si vemos el titulo del post
             //$this->seeInElement('h1','esta es una pregunta');
-
             //para simplificar la prueba usaremos el metodo see
             $this->see('esta es una pregunta');
 

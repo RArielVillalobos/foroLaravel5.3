@@ -38,8 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         //$this->mapWebRoutes();
-        //vamos a tener un archivo para rutas publicas
-        $this->mapPublicRoutes();
+
 
         //otro para usuario anonimo
         $this->mapGuestRoutes();
@@ -48,6 +47,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapAuthRoutes();
 
         //
+        //vamos a tener un archivo para rutas publicas
+        $this->mapPublicRoutes();
     }
 
     /**
