@@ -59,9 +59,12 @@ class CreatePostsTest extends FeatureTestCase
             ->seePageIs(route('posts.create'))
             //deberiamos ver una serie de erroers
             //el elemento field_title tenga el bloque de ayuda
-            //si el campo tiene un error tendra la clase .help-error
-            ->seeInElement('#field_title.has-error .help-block','El campo título es obligatorio')
-            ->seeInElement('#field_content.has-error .help-block','El campo contenido es obligatorio');
+            //si el campo tiene un error tendra la clase .help-error(definido el el metodo errors)
+            //aca usamos el metodo que acabamos de definir en FeatureTestcase
+            ->seeErrors([
+                'title'=>'El campo título es obligatorio',
+                'content'=>'El campo contenido es obligatorio'
+            ]);
 
     }
 }
