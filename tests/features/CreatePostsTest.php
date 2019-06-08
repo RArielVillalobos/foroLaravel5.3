@@ -8,7 +8,13 @@
 
 class CreatePostsTest extends FeatureTestCase
 {
-
+    //las pruebas funcionanes de aplicaciones o features
+    //a traves de la api que provee laravel que somos un usuario y tratamos d hacer o seguir las acciones que haria un user
+    //ej crear un post
+    //en las pruebas unitarias o de integracion es mas facil saber si nos equivamos y donde
+    //de las  3 pruebas(unitarias,integracion y funcionales ) esta es la mas lenta porque necesita cargar el controlador,la vista,revisar la bd,etc
+    //es la prueba que nos da una confianza mayor que todo el feature esta funcionando
+    //recomendacion primer crear este tipo de prueba,fncionales o de apliaciones como queramos llamale
     public function test_a_user_create_a_post(){
         $user=$this->defaultUser();
         //simular que un usuario esta conectado actionAs
@@ -28,7 +34,8 @@ class CreatePostsTest extends FeatureTestCase
                 'title'=>'esta es una pregunta',
                 'content'=>'este es el contenido',
                 'pending'=>true,
-                'user_id'=>$user->id
+                'user_id'=>$user->id,
+                'slug'=>'esta-es-una-pregunta',
             ]);
 
             //si el usuario fue redirigido a otra pagina(detalle del posts)

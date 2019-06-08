@@ -22,6 +22,7 @@ class ShowPostTest extends TestCase
         ]);
         //le asigno el post al usuario
         $user->posts()->save($post); //asigna automaticamente el user_id al post
+        //dd(route('posts.show',$post));
 
         //when
         $this->visit(route('posts.show',$post)) //posts/1023-->es el id
