@@ -19,4 +19,10 @@ class Post extends Model
         $this->attributes['slug']=Str::slug($value);
 
     }
+
+    //atributo dinamico eloquent
+
+    public function getUrlAttribute(){
+        return route('posts.show',[$this->id,$this->slug]);
+    }
 }

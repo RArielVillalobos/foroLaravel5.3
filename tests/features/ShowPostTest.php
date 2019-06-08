@@ -25,7 +25,8 @@ class ShowPostTest extends TestCase
         //dd(route('posts.show',$post));
 
         //when
-        $this->visit(route('posts.show',$post)) //posts/1023-->es el id
+        //la funcion url esta definida en el modelo post
+        $this->visit($post->url) //posts/1023-->es el id
             ->seeInElement('h1',$post->title)
             //tambien en la misma pagina deberiamos ver el contenido
             ->see($post->content)
@@ -35,4 +36,54 @@ class ShowPostTest extends TestCase
 
 
     }
+    //url viejas redirijan a las urls nuevas
+    public function test_old_urls_are_redirected(){
+        //having
+        $user=$this->defaultUser();
+
+        $post=factory(\App\Post::class)->make([
+            'title'=>'Old title',
+
+
+        ]);
+
+        $user->posts()->save($post);
+        $url=$post->url;
+
+        //actualizamos el post
+        $post->update(['title'=>'New title']);
+
+        //cuando visite la url antigua la pagina sea  la url nueva
+        //seria q lo redirigimos a la url nueva
+        $this->visit($url)
+            ->seePageIs($post->url);
+
+
+    }
+
+   /* function test_post_url_with_wrong_slugs_still_work(){
+        //having
+
+        $user=$this->defaultUser();
+
+        $post=factory(\App\Post::class)->make([
+            'title'=>'Old title',
+
+
+        ]);
+
+        $user->posts()->save($post);
+        $url=$post->url;
+
+        //actualizamos el post
+        $post->update(['title'=>'New title']);
+
+        //visitando url obsoleta
+        $this->visit($url)
+            ->assertResponseOk()
+            ->see('New title');
+
+
+    }*/
+
 }
