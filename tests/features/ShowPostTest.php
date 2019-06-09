@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ShowPostTest extends TestCase
+
+class ShowPostTest extends FeatureTestCase
 {
     //comprobar que un usuario puede ver los detalles de un post
     public function test_a_user_can_see_the_post_details(){
@@ -14,14 +12,18 @@ class ShowPostTest extends TestCase
             'name'=>'Ariel Villalobos',
 
         ]);
-        //en ves de usar create usaremos make , que no guardara el modelo en la base de datos aun a diferencia del create
-        $post=factory(\App\Post::class)->make([
+        //en ves de usar create usaremos make , que no guardara el modelo en la base de datos(asi podemos asignar el post al usuario) aun a diferencia del create
+        //ahora definimos un metodo CreatePost(), que adentro tiene la llamada a la factoria asi ahorrmos codigo
+        $post=$this->createPost([
             'title'=>'Como instalar laravel',
             'content'=>'Este es el contenido del post',
+            //como aca tambien estamos generando un usuario y en la factoria tambien, se generarian 2 usuarios
+            //solucionamos esto usando una funcion anonima en la factoria, que reconocera si ya estamos creando el usuario no ejecutara esa factoria
+            'user_id'=>$user->id
 
         ]);
         //le asigno el post al usuario
-        $user->posts()->save($post); //asigna automaticamente el user_id al post
+       // $user->posts()->save($post); //asigna automaticamente el user_id al post
         //dd(route('posts.show',$post));
 
         //when
@@ -30,7 +32,7 @@ class ShowPostTest extends TestCase
             ->seeInElement('h1',$post->title)
             //tambien en la misma pagina deberiamos ver el contenido
             ->see($post->content)
-            ->see($user->name);
+            ->see('Ariel Villalobos');
 
 
 
@@ -39,15 +41,13 @@ class ShowPostTest extends TestCase
     //url viejas redirijan a las urls nuevas
     public function test_old_urls_are_redirected(){
         //having
-        $user=$this->defaultUser();
+        //generaremos el post con el   usuario desde la factoria
+        //$user=$this->defaultUser();
 
-        $post=factory(\App\Post::class)->make([
-            'title'=>'Old title',
+        //ahora definimos un metodo CreatePost(), que adentro tiene la llamada a la factoria asi ahorrmos codigo
+       $post= $this->createPost(['title'=>'Old title']);
 
 
-        ]);
-
-        $user->posts()->save($post);
         $url=$post->url;
 
         //actualizamos el post

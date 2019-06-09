@@ -3,7 +3,6 @@
 
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Post;
 
 class PostIntegrationTest extends TestCase
 {
@@ -17,15 +16,17 @@ class PostIntegrationTest extends TestCase
     use DatabaseTransactions;
     public function test_a_slug_is_generated_and_save_to_database()
     {
-        $user=$this->defaultUser();
+        //crearemos el usuario dentro de la factory
+       // $user=$this->defaultUser();
 
         //uso el modelo factory para generar el post ya que el contenido lo va a generar el factory
         //asi no lo estoy generando
-        $post=factory(Post::class)->make([
+        //ahora definimos un metodo CreatePost() en TestCase, que adentro tiene la llamada a la factoria asi ahorrmos codigo
+        $post=$this->createPost([
             'title'=>'Como instalar laravel',
         ]);
 
-        $user->posts()->save($post);
+        //$user->posts()->save($post);
 
         //obtiene una instancia fresca
         $this->assertSame('como-instalar-laravel',$post->fresh()->slug);
