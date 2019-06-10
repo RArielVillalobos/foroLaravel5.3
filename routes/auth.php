@@ -12,3 +12,4 @@ Route::get('posts/create','CreatePostController@create')->name('posts.create');
 
 Route::post('posts/create','CreatePostController@store')->name('posts.store');
 
+Route::post('posts/{post}/comments','CommentController@store')->name('comment.store');
