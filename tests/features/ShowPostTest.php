@@ -38,6 +38,36 @@ class ShowPostTest extends FeatureTestCase
 
 
     }
+
+    //test que demuestra si los post son paginados
+    public function test_the_posts_are_paginated(){
+        $first=factory(\App\Post::class)->create([
+            'title'=>'Post mas antiguo'
+        ]);
+        //creando 15 post
+       factory(\App\Post::class)->times(15)->create();
+
+        $last=factory(\App\Post::class)->create([
+            'title'=>'Post mas reciente'
+        ]);
+
+        //debuguear dos variables
+       // dd($first->toArray(),$last->toArray());
+
+        $this->visit('/')
+            //deberia ver el ultimo post
+            ->see($last->title)
+            //y no el primero
+            ->dontSee($first->title)
+            //si hago click en el numero 2
+            ->click('2')
+            //el usuario deberia poder ver el primer post
+            ->see($first->title)
+            //no deberia ver el ultimo post(este post deberia estar en otra pagina)
+            ->dontSee($last->title);
+
+
+    }
     //url viejas redirijan a las urls nuevas
     public function test_old_urls_are_redirected(){
         //having

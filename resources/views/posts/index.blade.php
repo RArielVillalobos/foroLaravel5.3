@@ -8,5 +8,6 @@
 
         @endforeach
     </ul>
+    {{$posts->render()}}
 
 @endsection

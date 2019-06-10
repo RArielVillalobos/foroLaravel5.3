@@ -21,7 +21,10 @@ class PostController extends Controller
     }
 
     public function index(){
-        $posts=Post::all();
+        $posts=Post::orderBy('id','desc')->paginate();
+        //imprimimos todas las fechas de los post,
+        //es conveniente ordenarlos por el id, que por fecha
+        //dd($posts->pluck('created_at')->toArray());
         return view('posts.index',['posts'=>$posts]);
     }
 }
