@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-
-    //casteando la columna answrd para que sea booleana ya que en la bd se creo como tinint(0 y 1)
-    //pero nosotros le pasamos parametros true o false si no dara error al insertar valores
-    protected $casts=[
-        'pending'=>'boolean'
-    ];
+    //
     protected $fillable=['title','content','user_id'];
 
 
