@@ -27,7 +27,7 @@ $factory->define(\App\Post::class,function (\Faker\Generator $faker){
         return [
             'title'=>$faker->sentence,
             'content'=>$faker->paragraph,
-            'pending'=>$faker->boolean(),
+            'pending'=>true,
             //solamente se ejecutara si no estamos usando el usuario fuera del model factory
             'user_id'=>function (){
 
@@ -36,4 +36,21 @@ $factory->define(\App\Post::class,function (\Faker\Generator $faker){
 
             
         ];
+});
+
+$factory->define(\App\Comment::class,function(\Faker\Generator $faker){
+   return [
+       'comment'=>$faker->paragraph,
+       'answer'=>false,
+       //evitar que se ejecute en caso de que pase manualmente el id del post
+       'post_id'=>function(){
+            return factory(\App\Post::class)->create()->id;
+       },
+       'user_id'=>function (){
+
+           return factory(\App\User::class)->create()->id;
+       },
+
+
+   ];
 });
