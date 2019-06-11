@@ -11,5 +11,20 @@
         <button type="submit">Publicar comentario</button>
     {!! Form::close()!!}
 
+    {{-- ultimos comentarios al principio--}}
+    @foreach($post->latestComment as $comment)
+        {{-- si el comentario es la respuesta del post, agregamos la clase answer si no no agregoninguna --}}
+        <article class="{{$comment->answer?'answer':''}}">
+            {{$comment->comment}}
+            {!! Form::open(['route'=>['comments.accept',$comment],'method'=>'post'] ) !!}
+            <button type="submit">Aceptar respuesta</button>
+
+            {!! Form::close() !!}
+        </article>
+
+
+
+    @endforeach
+
 
 @endsection

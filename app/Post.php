@@ -23,6 +23,12 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function latestComment(){
+        //los comentarios mas recientes al principio
+        return $this->comments()->orderBy('id','desc');
+
+    }
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title']=$value;
