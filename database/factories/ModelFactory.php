@@ -41,7 +41,7 @@ $factory->define(\App\Post::class,function (\Faker\Generator $faker){
 $factory->define(\App\Comment::class,function(\Faker\Generator $faker){
    return [
        'comment'=>$faker->paragraph,
-       'answer'=>false,
+
        //evitar que se ejecute en caso de que pase manualmente el id del post
        'post_id'=>function(){
             return factory(\App\Post::class)->create()->id;
