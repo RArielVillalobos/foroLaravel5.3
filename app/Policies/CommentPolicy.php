@@ -12,6 +12,7 @@ class CommentPolicy
 
    public function accept(User $user,Comment $comment){
        //si el usuario es igual al usuario que creo el post
+
         return $user->owns($comment->post);
 
    }

@@ -16,10 +16,13 @@
         {{-- si el comentario es la respuesta del post, agregamos la clase answer si no no agregoninguna --}}
         <article class="{{$comment->answer?'answer':''}}">
             {{$comment->comment}}
-            {!! Form::open(['route'=>['comments.accept',$comment],'method'=>'post'] ) !!}
-            <button type="submit">Aceptar respuesta</button>
+            {{-- si el usuario puede aceptar el comentario y el comentario ya no esta marcado como respuesta --}}
+           @if(Gate::allows('accept',$comment) && !$comment->answer)
+             {!! Form::open(['route'=>['comments.accept',$comment],'method'=>'post'] ) !!}
+                <button type="submit">Aceptar respuesta</button>
 
             {!! Form::close() !!}
+            @endif
         </article>
 
 

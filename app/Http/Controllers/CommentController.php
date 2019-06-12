@@ -23,6 +23,9 @@ class CommentController extends Controller
     }
 
     public function accept(Comment $comment){
+        //debo implementar la politica de acceso de esta manera para evitar que envien una peticion post
+        //deja pasar unicamente a los usuarios que estan autorizados para aceptar este comentario
+        $this->authorize('accept',$comment);
          $comment->markAsAnswer($comment->post);
 
         return redirect($comment->post->url);
