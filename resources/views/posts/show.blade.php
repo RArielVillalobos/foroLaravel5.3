@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>{{$post->title}}</h1>
-    <h2>{{$post->content}}</h2>
+    {!!$post->safe_html_content!!}
     <h4>{{$post->user->name}}</h4>
 
     <h4>Comentarios</h4>
@@ -15,6 +15,7 @@
     @foreach($post->latestComment as $comment)
         {{-- si el comentario es la respuesta del post, agregamos la clase answer si no no agregoninguna --}}
         <article class="{{$comment->answer?'answer':''}}">
+            {{--@todo: agregar soporte markdown en los comentarios --}}
             {{$comment->comment}}
             {{-- si el usuario puede aceptar el comentario y el comentario ya no esta marcado como respuesta --}}
            @if(Gate::allows('accept',$comment) && !$comment->answer)
