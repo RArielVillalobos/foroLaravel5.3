@@ -5,6 +5,13 @@
     {!!$post->safe_html_content!!}
     <h4>{{$post->user->name}}</h4>
 
+    @if(auth()->check() && !auth()->user()->isSubscribedTo($post))
+        {!! Form::open(['route'=>['posts.subscribe',$post],'method'=>'POST']) !!}
+        <button type="submit">Subscribirse al post</button>
+        {!! Form::close() !!}
+    @endif
+
+
     <h4>Comentarios</h4>
     {!! Form::open(['route'=>['comment.store',$post],'method'=>'post']) !!}
         {!! Field::textarea('comment') !!}

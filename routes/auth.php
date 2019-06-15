@@ -16,3 +16,4 @@ Route::post('posts/create','CreatePostController@store')->name('posts.store');
 Route::post('posts/{post}/comments','CommentController@store')->name('comment.store');
 Route::post('comments/{comment}/accept','CommentController@accept')->name('comments.accept');
 
+Route::post('posts/{post}/subscribe','SubscriptionController@subscribe')->name('posts.subscribe');
