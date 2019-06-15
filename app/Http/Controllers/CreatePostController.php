@@ -21,14 +21,10 @@ class CreatePostController extends Controller
             'title'=>'required',
             'content'=>'required'
         ]);
-        //creamos el post
-        $post=new Post($request->all());
-        //se lo asignamos al usuario conectado
-        auth()->user()->posts()->save($post);
 
-        //si no retornamos nada dara un error Crawler la prueba
-        //debemos retornar algo
-        return "Post". $post->title;
+        $post=auth()->user()->createPost($request);
+        return redirect($post->url);
+
 
     }
 }

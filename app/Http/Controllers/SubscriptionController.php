@@ -19,4 +19,9 @@ class SubscriptionController extends Controller
 
 
     }
+
+    public function unsubscribe(Post $post){
+        auth()->user()->unsubscribeFrom($post);
+        return redirect($post->url);
+    }
 }

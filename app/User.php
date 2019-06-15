@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -47,6 +48,20 @@ class User extends Authenticatable
 
     }
 
+    public function createPost(Request $request){
+
+        //creamos el post
+        $post=new Post($request->all());
+        //se lo asignamos al usuario conectado
+        $this->posts()->save($post);
+
+        //subscribirse al post cuando cree un post
+        $this->subscribeTo($post);
+
+        return $post;
+
+
+    }
     public function subscriptions(){
         //en el segundo argumento puedo personalizar el nombre de la tabla
         //laravel por defecto espera post_user como nombre de tabla
@@ -61,6 +76,10 @@ class User extends Authenticatable
     }
     public function subscribeTo(Post $post){
        $this->subscriptions()->attach($post);
+    }
+
+    public function unsubscribeFrom(Post $post){
+        $this->subscriptions()->detach($post);
     }
 
     //cualquier modeo de eloquent (post,comentario,etc)

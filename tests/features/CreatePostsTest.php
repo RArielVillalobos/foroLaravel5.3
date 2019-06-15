@@ -37,12 +37,15 @@ class CreatePostsTest extends FeatureTestCase
                 'user_id'=>$user->id,
                 'slug'=>'esta-es-una-pregunta',
             ]);
+            $post=\App\Post::first();
+            //se subscribe automaticamente a su post
+            $this->seeInDatabase('subscriptions',[
+                'user_id'=>$user->id,
+                'post_id'=>$post->id
+            ]);
 
-            //si el usuario fue redirigido a otra pagina(detalle del posts)
-            //comprobamos si vemos el titulo del post
-            //$this->seeInElement('h1','esta es una pregunta');
-            //para simplificar la prueba usaremos el metodo see
-            $this->see('esta es una pregunta');
+            $this->seePageIs($post->url);
+
 
     }
     public function test_creating_a_post_requires_authentication(){
