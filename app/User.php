@@ -52,7 +52,7 @@ class User extends Authenticatable
         //se lo enviaremos a los suscritores 1er argumento(excepto al autor del comentario)
         //2do argumento la notification(postCommented)//autor del comentario//el post que esta siendo comentado//conviene el comentario ya que contiene el post
         Notification::send($post->suscribers()->where('users.id','!=',$this->id)->get(),
-            new PostCommented($this,$comment));
+            new PostCommented($comment));
         return $comment;
 
     }

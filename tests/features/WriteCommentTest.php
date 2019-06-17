@@ -3,12 +3,17 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Notification;
 
 class WriteCommentTest extends FeatureTestCase
 {
 
     public function test_a_user_write_comment()
     {
+        //disparo notificacion fake
+        //para no disparar una notificacion por error cada vez que ejecute este test
+        Notification::fake();
+
         $post=$this->createPost();
         $user=$this->defaultUser();
         //necesitamos que el usuario este logueado
