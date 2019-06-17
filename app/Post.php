@@ -24,6 +24,10 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function suscribers(){
+        return $this->belongsToMany(User::class,'subscriptions');
+    }
+
     public function latestComment(){
         //los comentarios mas recientes al principio
         return $this->comments()->orderBy('id','desc');

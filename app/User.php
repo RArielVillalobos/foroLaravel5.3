@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Notifications\PostCommented;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Notification;
+
 
 class User extends Authenticatable
 {
@@ -45,6 +48,12 @@ class User extends Authenticatable
         ]);
         $this->comments()->save($comment);
 
+        //enviar notifiacacion a los suscriptores del post, una vez que creo el comentario
+        //se lo enviaremos a los suscritores 1er argumento(excepto al autor del comentario)
+        //2do argumento la notification(postCommented)//autor del comentario//el post que esta siendo comentado//conviene el comentario ya que contiene el post
+        Notification::send($post->suscribers()->where('users.id','!=',$this->id)->get(),
+            new PostCommented($this,$comment));
+        return $comment;
 
     }
 
@@ -75,7 +84,13 @@ class User extends Authenticatable
 
     }
     public function subscribeTo(Post $post){
-       $this->subscriptions()->attach($post);
+
+        if($this->subscriptions()->attach($post)){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     public function unsubscribeFrom(Post $post){
