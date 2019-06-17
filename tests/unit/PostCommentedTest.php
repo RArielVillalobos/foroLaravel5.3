@@ -12,16 +12,20 @@ class PostCommentedTest extends TestCase
     //comprobar que se esta construyendo un mensaje de email
     public function test_it_builds_a_mail_message()
     {
-        $post=factory(\App\Post::class)->create([
+        //no es necesario crear el registro en la bd con factory
+        //podemos hacer la prueba mas rapida y solo instanciar la clase
+        /*$post=factory(\App\Post::class)->create([
             'title'=>'Titulo del post'
-        ]);
-        $author=factory(\App\User::class)->create([
+        ]);*/
+        $post=new \App\Post([
+           'title'=>'Titulo del post'
+       ]);
+        $author=new \App\User([
             'name'=>'Ariel villalobos'
         ]);
-        $comment=factory(\App\Comment::class)->create([
-            'post_id'=>$post->id,
-            'user_id'=>$author->id
-        ]);
+        $comment=new \App\Comment();
+        $comment->post=$post;
+        $comment->user=$author;
 
         //queremos comprobar que podememos instanciar la clase de la notificacion
         $notification=new \App\Notifications\PostCommented($comment);
