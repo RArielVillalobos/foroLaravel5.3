@@ -21,7 +21,8 @@ class PostCommentedTest extends TestCase
            'title'=>'Titulo del post'
        ]);
         $author=new \App\User([
-            'name'=>'Ariel villalobos'
+            'first_name'=>'Ariel',
+            'last_name'=>'Villalobos'
         ]);
         $comment=new \App\Comment();
         $comment->post=$post;
@@ -36,7 +37,7 @@ class PostCommentedTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Notifications\Messages\MailMessage::class,$message);
         //comprobar que en el asunto del mensaje diga
         $this->assertSame('Nuevo comentario en: Titulo del post',$message->subject);
-        $this->assertSame('Ariel villalobos escribio un comentario en: Titulo del post',$message->introLines[0]);
+        $this->assertSame('Ariel Villalobos escribio un comentario en: Titulo del post',$message->introLines[0]);
         $this->assertSame($comment->post->url,$message->actionUrl);
     }
 }

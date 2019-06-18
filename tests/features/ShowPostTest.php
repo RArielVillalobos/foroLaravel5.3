@@ -9,7 +9,8 @@ class ShowPostTest extends FeatureTestCase
 
         //having
         $user=$this->defaultUser([
-            'name'=>'Ariel Villalobos',
+            'first_name'=>'Ariel',
+            'last_name'=>'Villalobos'
 
         ]);
         //en ves de usar create usaremos make , que no guardara el modelo en la base de datos(asi podemos asignar el post al usuario) aun a diferencia del create

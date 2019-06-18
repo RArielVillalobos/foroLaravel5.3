@@ -10,7 +10,7 @@ class RegisterController extends Controller
 {
     //
     public function create(){
-        return view('register.create');
+        return view('register/create');
     }
 
     public function store(Request $request){
@@ -20,11 +20,11 @@ class RegisterController extends Controller
         //despues de generar el token,enviar el email
         Token::generateFor($user)->sendByEmail();
 
-        return redirect(route('register_confirmation'),303);
+        return redirect()->route('register_confirmation');
 
     }
 
     public function confirmation(){
-        return view('register.confirmation');
+        return view('register/confirmation');
     }
 }
