@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            //no necesitamos el password, ya que va a ser un login basado en token
+            //no necesitamos el password, ya que va a ser un token basado en token
             $table->increments('id');
             $table->string('username');
             $table->string('first_name');

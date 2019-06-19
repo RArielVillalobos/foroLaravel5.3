@@ -12,7 +12,7 @@ class RequestTokenTest extends FeatureTestCase
         $user=$this->defaultUser(['email'=>'ariel@foro.net']);
 
         //when
-        $this->visitRoute('login')
+        $this->visitRoute('token')
             ->type('ariel@foro.net','email')
             ->press('Solicitar token');
 
@@ -38,7 +38,7 @@ class RequestTokenTest extends FeatureTestCase
         Mail::fake();
 
         //when
-        $this->visitRoute('login')
+        $this->visitRoute('token')
             ->press('Solicitar token');
         $token=\App\Token::first();
 
@@ -62,7 +62,7 @@ class RequestTokenTest extends FeatureTestCase
         Mail::fake();
 
         //when
-        $this->visitRoute('login')
+        $this->visitRoute('token')
             ->type('Silence','email')
             ->press('Solicitar token');
 
@@ -81,7 +81,7 @@ class RequestTokenTest extends FeatureTestCase
         $user=$this->defaultUser(['email'=>'arielito@foro.net']);
 
         //when
-        $this->visitRoute('login')
+        $this->visitRoute('token')
             ->type('arieldjmix@foro.net','email')
             ->press('Solicitar token');
 

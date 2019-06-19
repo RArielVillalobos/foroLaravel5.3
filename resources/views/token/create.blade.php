@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Login</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('login.store') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ route('token.store') }}">
                             {{ csrf_field() }}
                             {!! \Styde\Html\Facades\Alert::render() !!}
                             {!! Field::email('email') !!}

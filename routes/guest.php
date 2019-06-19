@@ -8,5 +8,7 @@
 Route::get('register','RegisterController@create')->name('register');
 Route::post('register','RegisterController@store')->name('store');
 Route::get('register/confirmation','RegisterController@confirmation')->name('register_confirmation');
-Route::get('login','LoginController@create')->name('login');
-Route::post('login','LoginController@store')->name('login.store');
+Route::get('token','TokenController@create')->name('token');
+Route::post('token','TokenController@store')->name('token.store');
+Route::get('login/{token}','LoginController@login')->name('login');
+

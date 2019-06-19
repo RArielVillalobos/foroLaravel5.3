@@ -3,27 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Token;
-use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     //
-    public function create(Request $request){
-        return view('login/create');
-    }
 
-    public function store(Request $request){
-        $this->validate($request,[
-            'email'=>'required|email|exists:users'
+    public function login(Token $token){
+        Auth::login($token->user);
 
-        ]);
-        $user=User::where('email',$request->email)->first();
-        Token::generateFor($user)->sendByEmail();
-        alert('Enviamos un enlace para que inicies sesion');
-        return back();
+        $token->delete();
+        return redirect('/');
 
     }
-
-
 }

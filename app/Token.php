@@ -26,4 +26,10 @@ class Token extends Model
         //le paso el token al mailable(TokenMail)
         Mail::to($this->user)->send(new TokenMail($this));
     }
+
+    public function getRouteKeyName()
+    {
+        //es el atributo token, no el id
+        return 'token';
+    }
 }
