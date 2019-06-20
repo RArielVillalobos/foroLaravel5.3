@@ -4,6 +4,7 @@ namespace App;
 
 use App\Mail\TokenMail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class Token extends Model
@@ -31,5 +32,11 @@ class Token extends Model
     {
         //es el atributo token, no el id
         return 'token';
+    }
+
+    public function login(){
+        Auth::login($this->user);
+
+        $this->delete();
     }
 }
