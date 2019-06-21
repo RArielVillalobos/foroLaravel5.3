@@ -39,4 +39,9 @@ class Token extends Model
 
         $this->delete();
     }
+
+    public function getUrlAttribute(){
+        //devuelvo la url necesaria para iniciar sesion
+        return route('login',['token'=>$this->token]);
+    }
 }
