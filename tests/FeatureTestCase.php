@@ -7,10 +7,13 @@
  */
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-class FeatureTestCase extends TestCase
+class FeatureTestCase extends \Laravel\BrowserKitTesting\TestCase
 {
 
     use DatabaseTransactions;
+    use \Tests\CreatesApplication;
+
+    use \Tests\TestsHelper;
 
     //definimos un metodo para el test
 

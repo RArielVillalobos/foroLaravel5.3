@@ -45,8 +45,8 @@ class RegistrationTest extends FeatureTestCase
             //1er argumento el usuario que debe recibir el email
             //2do argumento clase mailalble que nosotros estamos utilizando para enviar el email
             //3ro funcion anonima para asegurarme que el usuario recibe el mismo token que fue generado
-            Mail::assertSentTo($user,TokenMail::class,function ($mail) use ($token){
-                return $mail->token->id==$token->id;
+            Mail::assertSent(TokenMail::class,function ($mail) use ($user,$token){
+                return $mail->hasTo($user) && $mail->token->id==$token->id;
             });
 
             //luego quiero que sea redirigito a esta ruta
